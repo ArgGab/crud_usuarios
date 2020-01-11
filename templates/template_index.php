@@ -25,7 +25,7 @@
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label>Código</label>
-                    <input class="form-control input-group-text" type="text" value="@" readonly>
+                    <input class="form-control input-group-text" type="text" value="<?=$codigo_usuario?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Tipo de Pessoa *</label>
@@ -35,13 +35,25 @@
                         <option value="juridica">Jurídica</option>
                     </select>
                 </div>
-                <div class="form-group col-md-6">
-                    <label id="cpf_cnpj_name">CPF/CNPJ *</label>
-                    <input class="form-control" type="text" name="cpf_cnpj" id="cpf_cnpj_field" readonly placeholder="Selecione o Tipo de Pessoa">
+                <div class="form-group col-md-6" id="cpf_cnpj">
+                    <label>CPF/CNPJ *</label>
+                    <input class="form-control" type="text" readonly placeholder="Selecione o tipo de Pessoa">
+                </div>
+                <div class="form-group col-md-4" id="cnpj" style="display:none">
+                    <label>CNPJ *</label>
+                    <input class="form-control" type="text" name="cnpj" id="cnpj_input" placeholder ="Ex: 00000000000000">
+                </div>
+                <div class="form-group col-md-2" id="cnpj_button" style="display:none">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-primary form-control" name="cadastrar" onclick="consultaCNPJ()">Consultar CNPJ</button>
+                </div>
+                <div class="form-group col-md-6" id="cpf" style="display:none"> 
+                    <label id="cpf_cnpj_name">CPF *</label>
+                    <input class="form-control" type="text" name="cpf" id="cpf_input" placeholder ="Ex: 000.000.000-00">
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Nome/Nome Fantasia *</label>
-                    <input type="text" class="form-control" name="nome">
+                    <label id="nome">Nome/Nome Fantasia *</label>
+                    <input type="text" class="form-control" name="nome" id="nome_input">
                 </div>
                 <div class="form-group col-md-6">
                     <label id="razao_label">Razão Social</label>
@@ -49,7 +61,7 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email">
+                    <input type="email" class="form-control" name="email" id="email">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Telefone</label>
@@ -63,23 +75,23 @@
             <div class="form-row">
             <div class="form-group col-md-2">
             <label>CEP *</label>
-            <input type="text" class="form-control" id="cep" name="cep">
+            <input type="text" class="form-control" id="cep" name="cep" onblur="consultaCEP()">
             </div>
             <div class="form-group col-md-8">
             <label>Endereço *</label>
-            <input type="text" class="form-control" name="endereco">
+            <input type="text" class="form-control" name="endereco" id="endereco">
             </div>
             <div class="form-group col-md-2">
                 <label>Número</label>
-                <input type="text" class="form-control" name="numero">
+                <input type="text" class="form-control" name="numero" id="numero">
             </div>
             <div class="form-group col-md-4">
                 <label>Complemento</label>
-                <input type="text" class="form-control" name="complemento">
+                <input type="text" class="form-control" name="complemento" id="complemento">
             </div>
             <div class="form-group col-md-4">
             <label>Município *</label>
-            <input type="text" class="form-control" name="municipio">
+            <input type="text" class="form-control" name="municipio" id="municipio">
             </div>
             <div class="form-group col-md-4">
             <label>Cidade *</label>
@@ -108,25 +120,26 @@
         function alterarFormulario(value){
             if(value == 'fisica'){
                 $('#nome').html("Nome *");
-                $('#cpf_cnpj_name').html('CPF *');
-                $('#cpf_cnpj_field').mask('000.000.000-00', {reverse:false});
-                $('#cpf_cnpj_field').removeAttr("readonly");
-                $('#cpf_cnpj_field').removeAttr("placeholder");
+                $('#cnpj').css("display","none");
+                $('#cnpj_button').css("display","none");
+                $('#cpf').css("display","block");
+                $('#cpf_cnpj').css("display","none");
                 $('#razao').attr("readonly", "readonly");
                 $('#razao_label').html('Razão Social');
             }else if(value=="juridica"){
                 $('#nome').html("Nome Fantasia *");
-                $('#cpf_cnpj_name').html('CNPJ *');
-                $('#cpf_cnpj_field').mask('00.000.000/0000-00', {reverse:false});
-                $('#cpf_cnpj_field').removeAttr("readonly");
-                $('#cpf_cnpj_field').removeAttr("placeholder");
+                $('#cnpj').css("display","block");
+                $('#cnpj_button').css("display","block");
+                $('#cpf').css("display","none");
+                $('#cpf_cnpj').css("display","none");
                 $('#razao').removeAttr("readonly");
                 $('#razao_label').html('Razão Social *');
             }else{
                 $('#nome').html("Nome/Nome Fantasia *");
-                $('#cpf_cnpj_name').html('CPF/CNPJ *');
-                $('#cpf_cnpj_field').attr("readonly","readonly");
-                $('#cpf_cnpj_field').attr("placeholder","Selecione o Tipo de Pessoa");
+                $('#cnpj').css("display","none");
+                $('#cnpj_button').css("display","none");
+                $('#cpf').css("display","none");
+                $('#cpf_cnpj').css("display","block");
                 $('#razao').attr("readonly", "readonly");
                 $('#razao_label').html('Razão Social');
             }
@@ -139,18 +152,58 @@
                 
         }
         function masks(){
-            $('#cep').focus(function (){
-                $(this).mask('00000-000', {reverse:false});
-            });
-
-            $('#telefone').focus(function (){
-                $(this).mask('(00) 0000-0000', {reverse:false});
-            });
-
-            $('#celular').focus(function (){
-                $(this).mask('(00) 0 0000-0000', {reverse:false});
-            });
+            $('#cpf_input').mask('000.000.000-00',  {reverse: false});
+            $('#cnpj_input').mask('00000000000000',  {reverse: false});
+            $('#cep').mask('00000000', {reverse: false});
         }
+
+        function consultaCNPJ() {
+            var dados = $.parseJSON($.ajax({
+                type: "POST",
+                url: './scripts/consultaapi.php',
+                data:{cnpj:$("#cnpj_input").val()},
+                async: false
+                
+            }).responseText);
+
+            if(dados.status == "ERROR"){
+                alert('CNPJ Inválido');
+            }else{
+                $('#cnpj_input').val(dados.cnpj);
+                $('#nome_input').val(dados.fantasia);
+                $('#razao').val(dados.nome);
+                $('#email').val(dados.email);
+                $('#telefone').val(dados.telefone);
+                $('#cep').val(dados.cep);
+                $('#endereco').val(dados.logradouro + ", " + dados.bairro);
+                $('#numero').val(dados.numero);
+                $('#complemento').val(dados.complemento);
+                $('#municipio').val(dados.municipio);
+            }
+        }
+
+        function consultaCEP(){
+            if($('#cep').val() != ""){
+                var dados = $.parseJSON($.ajax({
+                type: "POST",
+                url: './scripts/consultaapi.php',
+                data: {cep:$("#cep").val()},
+                async: false
+                    
+                }).responseText);
+                if("erro" in dados){
+                    alert("CEP não encontrado");
+                }else{
+                    $('#cep').val(dados.cep);
+                    $('#endereco').val(dados.logradouro + ", " + dados.bairro);
+                    $('#numero').val(dados.numero);
+                    $('#complemento').val(dados.complemento);
+                    $('#municipio').val(dados.localidade);
+                }
+            }
+        }
+
+
     </script>
 </body>
 </html>

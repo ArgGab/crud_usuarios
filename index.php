@@ -1,41 +1,68 @@
 <?php
 
+require './scripts/usuario.class.php';
+$usuario = new Usuario;
+
 if(isset($_POST['edicao'])){
     include './templates/template_edicao.php';
 }else{
+    $codigo_usuario = $usuario->obterIdCadastro();
     include './templates/template_index.php';
 }
 
-if(isset($_POST['cadastrar'])){ 
+if(isset($_POST['cadastrar'])){
 
     // VERIFICAR SE OS CAMPOS FORAM ENVIADOS
-if(!empty($_POST['tipo_de_pessoa']) && !empty($_POST['nome']) && !empty($_POST['cpf_cnpj']) && !empty($_POST['endereco']) && !empty($_POST['cep']) && !empty($_POST['municipio']) && !empty($_POST['cidade'])){
-
-    //obtendo campos com proteção
-
+if(!empty($_POST['tipo_de_pessoa']) && !empty($_POST['nome']) && !empty($_POST['endereco']) && !empty($_POST['cep']) && !empty($_POST['municipio']) && !empty($_POST['cidade'])){
     $tipo_de_pessoa = $_POST['tipo_de_pessoa'];
-    $nome = addslashes($_POST['nome']);
-    $endereco = addslashes($_POST['endereco']);
-    $cep = addslashes($_POST['cep']);
-    $municipio = addslashes($_POST['municipio']);
-    $cidade = addslashes($_POST['cidade']);
-    $cpf_cnpj = addslashes($_POST['cpf_cnpj']);
-    $email = addslashes($_POST['email']);
-    $telefone = addslashes($_POST['telefone']);
-    $celular = addslashes($_POST['celular']);
-    $numero = addslashes($_POST['numero']);
-    $complemento = addslashes($_POST['complemento']);
 
+    //verificando se é pessoa fisica e se enviou CPF
+    if($tipo_de_pessoa == 'fisica'){
+        if (!empty($_POST['cpf'])){
+            $nome = addslashes($_POST['nome']);
+            $endereco = addslashes($_POST['endereco']);
+            $cep = addslashes($_POST['cep']);
+            $municipio = addslashes($_POST['municipio']);
+            $cidade = addslashes($_POST['cidade']);
+            $cpf_cnpj = addslashes($_POST['cpf']);
+            $email = addslashes($_POST['email']);
+            $telefone = addslashes($_POST['telefone']);
+            $celular = addslashes($_POST['celular']);
+            $numero = addslashes($_POST['numero']);
+            $complemento = addslashes($_POST['complemento']);
+        }else{
+            echo "<script type='text/javascript'>alert('O preenchimento do CPF é obrigatório.')</script>";
+        }
 
+    //verificando se é pessoa juridica e se enviou CNPJ
+    }else if($tipo_de_pessoa == 'juridica'){
 
-    //verificando se é Juridico e se enviou Razão Social.
+        //verificando se enviou a razao social.
+        if(empty($_POST['razao_social'])){
+            echo "<script type='text/javascript'>alert('O campo Razão Social é obrigatório para pessoas Jurídicas.')</script>";
+        }else{
+            $razao_social = addslashes($_POST['razao_social']);
+        }
 
-    if($tipo_de_pessoa == 'juridica' && empty($_POST['razao_social'])){
-        echo "<script type='text/javascript'>alert('O campo Razão Social é obrigatório para pessoas Jurídicas.')</script>";
-    }else{
-        $razao_social = addslashes($_POST['razao_social']);
+        //verificando se enviou cnpj
+        if (!empty($_POST['cnpj'])){
+        $nome = addslashes($_POST['nome']);
+        $endereco = addslashes($_POST['endereco']);
+        $cep = addslashes($_POST['cep']);
+        $municipio = addslashes($_POST['municipio']);
+        $cidade = addslashes($_POST['cidade']);
+        $cpf_cnpj = addslashes($_POST['cnpj']);
+        $email = addslashes($_POST['email']);
+        $telefone = addslashes($_POST['telefone']);
+        $celular = addslashes($_POST['celular']);
+        $numero = addslashes($_POST['numero']);
+        $complemento = addslashes($_POST['complemento']);
+
+        }else{
+            echo "<script type='text/javascript'>alert('O preenchimento do CNPJ é obrigatório.')</script>";
+        }
     }
-    echo $razao_social;
+
     //verificando se foi enviado pelo menos um tipo de usuario e salvando-o;
 
     if(!empty($_POST['cliente']) || !empty($_POST['fornecedor']) || !empty($_POST['funcionario'])){
@@ -61,10 +88,6 @@ if(!empty($_POST['tipo_de_pessoa']) && !empty($_POST['nome']) && !empty($_POST['
 
 }else if(isset($_POST['editar'])){ 
 
-
-
 }
-
-
 
 ?>
