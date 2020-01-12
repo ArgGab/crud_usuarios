@@ -21,7 +21,7 @@
         <h1>Cadastro de Usuarios</h1>
         <small>(*) Campos Obrigatórios!</small>
         <br><br>
-        <form method="POST">
+        <form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label>Código</label>

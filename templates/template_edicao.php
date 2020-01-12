@@ -14,5 +14,41 @@
                 <button type="submit" class="btn btn-link" name="edicao">Edição</button>
             </nav>
         </form>
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">Código</th>
+            <th>Tipo de Pessoa</th>
+            <th scope="col">Nome/Nome Fantasia</th>
+            <th scope="col">Razão Social</th>
+            <th scope="col">CPF/CNPJ</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            $result = $usuario->obterUsuarios();
+
+            if(empty($result)){
+
+            }else{
+                foreach($result as $usuario){
+                
+                    echo"<tr>
+                    <th scope='row'>".$usuario['CODIGO_USUARIO']."</th>
+                    <td>".$usuario['TIPO_PESSOA']."</td>
+                    <td>".$usuario['NOME_CLIENTE']."</td>
+                    <td>".$usuario['RAZAO_SOCIAL']."</td>
+                    <td>".$usuario['CPF_CNPJ']."</td>
+                    </tr>";
+                    
+                }
+            }   
+                ?>
+                
+        </tbody>
+        </table>
+            
+            <?php
+        ?>
 </body>
 </html>
