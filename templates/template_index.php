@@ -12,12 +12,10 @@
 </head>
 <body onload="masks()"> 
     <div class="container">
-        <form method="POST">
-            <nav class="nav nav-pills nav-fill">
-                <button type="submit" class="btn btn-link" name="cadastro">Cadastro</button>
-                <button type="submit" class="btn btn-link" name="edicao">Edição</button>
-            </nav>
-        </form>
+        <nav class="nav nav-pills nav-fill">
+            <a class="nav-item nav-link active" href="index.php">Cadastro</a>
+            <a class="nav-item nav-link" href="editar.php">Edição</a>
+        </nav>
         <h1>Cadastro de Usuarios</h1>
         <small>(*) Campos Obrigatórios!</small>
         <br><br>
@@ -45,7 +43,7 @@
                 </div>
                 <div class="form-group col-md-2" id="cnpj_button" style="display:none">
                     <label>&nbsp;</label>
-                    <button type="button" class="btn btn-primary form-control" name="cadastrar" onclick="consultaCNPJ()">Consultar CNPJ</button>
+                    <button type="button" class="btn btn-primary form-control" onclick="consultaCNPJ()">Consultar CNPJ</button>
                 </div>
                 <div class="form-group col-md-6" id="cpf" style="display:none"> 
                     <label id="cpf_cnpj_name">CPF *</label>

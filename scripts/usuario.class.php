@@ -18,7 +18,7 @@
 
         public function obterIdCadastro(){
 
-            $sql = "SELECT COUNT(CODIGO_USUARIO) AS codigos from usuarios";
+            $sql = "SELECT COUNT(CODIGO_USUARIO) AS codigos from usuarios WHERE STATUS = 'A'";
             $sql = $this->pdo->query($sql);
             $result = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -49,6 +49,14 @@
                 return 0;
             }
 
+        }
+        public function excluirUsuario($usuario_id){
+            $sql = "UPDATE usuarios SET STATUS = 'S' WHERE CODIGO_USUARIO = '$usuario_id'";
+            if($this->pdo->query($sql)){
+                return 1;
+            }else{
+                return 0;
+            }
         }
         public function obterUsuarios(){
             $sql = "SELECT * FROM usuarios WHERE STATUS = 'A'";
