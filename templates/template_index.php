@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
 
 </head>
 <body onload="masks()"> 
@@ -16,7 +15,8 @@
             <a class="nav-item nav-link active" href="index.php">Cadastro</a>
             <a class="nav-item nav-link" href="editar.php">Edição</a>
         </nav>
-        <h1>Cadastro de Usuarios</h1>
+        <div class="d-flex justify-content-center"><h1>Cadastro de Usuarios</h1></div>
+        
         <small>(*) Campos Obrigatórios!</small>
         <br><br>
         <form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
@@ -163,7 +163,6 @@
                 async: false
                 
             }).responseText);
-
             if(dados.status == "ERROR"){
                 alert('CNPJ Inválido');
             }else{

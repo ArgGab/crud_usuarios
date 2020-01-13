@@ -33,7 +33,7 @@
         $result = $usuario->obterUsuarios();
 
         if(empty($result)){
-            echo "<tr><td colspan='6'>Não existem usuários cadastrados!<td><tr>";
+            echo "<tr><td colspan='10' align='center'>Não existem usuários cadastrados!<td><tr>";
         }else{
             foreach($result as $usuario){
                 echo'<tr>
@@ -56,9 +56,12 @@
             
     </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        <a href="editar.php"><button type="button" class="btn btn-primary">Atualizar Registro</button></a>
+    </div>
     <script type="text/javascript">
         function abrirJanelaEditar(usuario_id){
-            window.open('./scripts/update_form_block.php?usuario_id='+usuario_id,'popUpWindow','height=800,width=1000,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+            window.open('editar.php?editar=true&usuario_id='+usuario_id,'popUpWindow','height=800,width=1000,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
         }
         function confirmarExcluir(usuario_id){
             if (confirm("Deseja mesmo excluir este usuário?")){

@@ -23,8 +23,7 @@
             $result = $sql->fetch(PDO::FETCH_ASSOC);
 
 
-            if($result["codigo"] > 0){
- 
+            if($result["codigo"] > 0){ 
                 return $result["codigo"] + 1;
             }else{
                 return 1;
@@ -86,7 +85,7 @@
 
         private function existeUsuario($cpf_cnpj){
     
-            $sql = "SELECT * FROM usuarios WHERE CPF_CNPJ = '$cpf_cnpj'";
+            $sql = "SELECT * FROM usuarios WHERE CPF_CNPJ = '$cpf_cnpj' AND STATUS = 'A'";
             $sql = $this->pdo->query($sql);
     
             if ($sql->rowCount() > 0){
