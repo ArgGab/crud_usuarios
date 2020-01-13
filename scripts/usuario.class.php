@@ -18,14 +18,14 @@
 
         public function obterIdCadastro(){
 
-            $sql = "SELECT COUNT(CODIGO_USUARIO) AS codigos from usuarios WHERE STATUS = 'A'";
+            $sql = "SELECT MAX(CODIGO_USUARIO) AS codigo from usuarios";
             $sql = $this->pdo->query($sql);
             $result = $sql->fetch(PDO::FETCH_ASSOC);
 
 
-            if($result["codigos"] > 0){
+            if($result["codigo"] > 0){
  
-                return $result["codigos"] + 1;
+                return $result["codigo"] + 1;
             }else{
                 return 1;
             }
@@ -58,8 +58,21 @@
                 return 0;
             }
         }
-        public function obterUsuarios(){
-            $sql = "SELECT * FROM usuarios WHERE STATUS = 'A'";
+
+        public function atualizarDados($nome, $razao_social, $endereco, $cep, $municipio, $cidade, $email, $telefone, $celular, $numero, $complemento, $cliente, $fornecedor, $funcionario, $usuario_id){
+            $sql = "UPDATE usuarios SET NOME_CLIENTE = '$nome', RAZAO_SOCIAL = '$razao_social', ENDERECO = '$endereco', CEP = '$cep', MUNICIPIO = '$municipio', CIDADE = '$cidade', 
+            EMAIL = '$email', TELEFONE = '$telefone', CELULAR = '$celular', NUMERO='$numero', COMPLEMENTO = '$complemento', CLIENTE = '$cliente', FORNECEDOR = '$fornecedor', 
+            FUNCIONARIO = '$funcionario' WHERE CODIGO_USUARIO = '$usuario_id'";
+
+            if($this->pdo->query($sql)){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+
+        public function obterUsuarios($filtro = ''){
+            $sql = "SELECT * FROM usuarios WHERE STATUS = 'A' $filtro";
             $sql = $this->pdo->query($sql);
 
             if($sql->rowCount() > 0){

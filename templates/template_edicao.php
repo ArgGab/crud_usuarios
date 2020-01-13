@@ -58,7 +58,7 @@
     </table>
     <script type="text/javascript">
         function abrirJanelaEditar(usuario_id){
-
+            window.open('./scripts/update_form_block.php?usuario_id='+usuario_id,'popUpWindow','height=800,width=1000,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
         }
         function confirmarExcluir(usuario_id){
             if (confirm("Deseja mesmo excluir este usuário?")){
