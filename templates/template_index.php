@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group col-md-4" id="cnpj" style="display:none">
                     <label>CNPJ *</label>
-                    <input class="form-control" type="text" name="cnpj" id="cnpj_input" placeholder ="Ex: 00000000000000">
+                    <input class="form-control" type="text" name="cnpj" id="cnpj_input" placeholder ="Ex: 00.000.000/0000-00">
                 </div>
                 <div class="form-group col-md-2" id="cnpj_button" style="display:none">
                     <label>&nbsp;</label>
