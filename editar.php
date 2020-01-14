@@ -17,6 +17,42 @@ if(isset($_GET['excluir'])){
     }
 
 }
+$filtro = "";
+
+if(isset($_POST['buscar'])){
+    if(isset($_POST['tipo_de_pessoa']) && !empty($_POST['tipo_de_pessoa'])){
+        $tipo_de_pessoa = $_POST['tipo_de_pessoa'];
+        $filtro .= " AND TIPO_PESSOA = '$tipo_de_pessoa'";
+    }
+    if(isset($_POST['cpf_cnpj']) && !empty($_POST['cpf_cnpj'])){
+        $cpf_cnpj = addslashes($_POST['cpf_cnpj']);
+        $filtro .= " AND CPF_CNPJ = '$cpf_cnpj'";
+    }
+    if(isset($_POST['nome']) && !empty($_POST['nome'])){
+        $nome = addslashes($_POST['nome']);
+        $filtro .= " AND NOME_CLIENTE = '$nome'";
+    }
+    if(isset($_POST['razao_social'])  && !empty($_POST['razao_social'])){
+        $razao = addslashes($_POST['razao_social']);
+        $filtro .= " AND RAZAO_SOCIAL = '$razao'";
+    }
+    if(isset($_POST['cep'])  && !empty($_POST['cep'])){
+        $cep = addslashes($_POST['cep']);
+        $filtro .= " AND CEP = '$cep'";
+    }
+    if(isset($_POST['cliente'])){
+        $cliente = $_POST['cliente'];
+        $filtro .= " AND CLIENTE = '$cliente'";
+    }
+    if(isset($_POST['fornecedor'])){
+        $fornecedor = $_POST['fornecedor'];
+        $filtro .= " AND FORNECEDOR = '$fornecedor'";
+    }
+    if(isset($_POST['funcionario'])){
+        $funcionario = $_POST['funcionario'];
+        $filtro .= " AND FUNCIONARIO = '$funcionario'";
+    }
+}
 
 if(isset($_GET['editar'])){
     $usuario_id = addslashes($_GET['usuario_id']);

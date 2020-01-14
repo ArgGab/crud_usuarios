@@ -73,7 +73,6 @@
         public function obterUsuarios($filtro = ''){
             $sql = "SELECT * FROM usuarios WHERE STATUS = 'A' $filtro";
             $sql = $this->pdo->query($sql);
-
             if($sql->rowCount() > 0){
                 $result = $sql->fetchAll(PDO::FETCH_ASSOC);
                 return $result;
