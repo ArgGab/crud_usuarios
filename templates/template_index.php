@@ -151,8 +151,10 @@
         }
         function masks(){
             $('#cpf_input').mask('000.000.000-00',  {reverse: false});
-            $('#cnpj_input').mask('00000000000000',  {reverse: false});
-            $('#cep').mask('00000000', {reverse: false});
+            $('#cnpj_input').mask('00.000.000/0000-00',  {reverse: false});
+            $('#celular').mask('(00) 0 0000-0000', {reverse: false});
+            $('#telefone').mask('(00) 0000-0000', {reverse: false});
+            $('#cep').mask('00000-000', {reverse: false});
         }
 
         function consultaCNPJ() {
@@ -191,7 +193,6 @@
                 if("erro" in dados){
                     alert("CEP não encontrado");
                 }else{
-                    $('#cep').val(dados.cep);
                     $('#endereco').val(dados.logradouro + ", " + dados.bairro);
                     $('#numero').val(dados.numero);
                     $('#complemento').val(dados.complemento);

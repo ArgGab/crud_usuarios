@@ -20,7 +20,7 @@ if(isset($_GET['excluir'])){
 $filtro = "";
 
 if(isset($_POST['buscar'])){
-    if(isset($_POST['tipo_de_pessoa']) && !empty($_POST['tipo_de_pessoa'])){
+    if(isset($_POST['tipo_de_pessoa']) && $_POST['tipo_de_pessoa'] != ""){
         $tipo_de_pessoa = $_POST['tipo_de_pessoa'];
         $filtro .= " AND TIPO_PESSOA = '$tipo_de_pessoa'";
     }
